@@ -8,7 +8,7 @@ This is a metarepo containing references to all repositories needed for the Bang
 
 - [PebbleOS](https://github.com/deep-gaurav/PebbleOS) - Main firmware (branch: `banglejs2`)
 - [nrfx](https://github.com/deep-gaurav/nrfx) - Nordic RF driver (branch: `pebbleos-banglejs2`)
-- [pebbleapp](https://github.com/deep-gaurav/pebbleapp) - Companion phone app
+- [pebbleapp](https://github.com/deep-gaurav/pebbleapp) - Companion phone app (branch: `banglejs2`)
 - [qspi-flasher](https://github.com/deep-gaurav/qspi-flasher) - QSPI flashing tooling
 - [log-reader](https://github.com/deep-gaurav/log-reader) - Log reading tooling
 
@@ -40,8 +40,11 @@ git submodule update --init --recursive
 ### Tools
 
 ```bash
-# Build qspi-flasher
-cd qspi-flasher
+# Build qspi-flasher (from qspi-flasher-fw/ directory for firmware, qspi-flasher-host/ for host)
+cd qspi-flasher/qspi-flasher-fw
+cargo build --release
+
+cd qspi-flasher/qspi-flasher-host
 cargo build --release
 
 # Build log-reader
@@ -55,56 +58,33 @@ Use the qspi-flasher tooling to flash QSPI via SWD port.
 
 ## Publishing Instructions
 
-The repos were prepared locally. To publish:
+### Already Published
 
-1. Create the following repos on GitHub:
-   - `deep-gaurav/PebbleOS`
-   - `deep-gaurav/nrfx`
-   - `deep-gaurav/pebbleapp`
-   - `deep-gaurav/qspi-flasher`
-   - `deep-gaurav/log-reader`
-   - `deep-gaurav/pebbleos-banglejs2`
+- `deep-gaurav/PebbleOS` (branches: `banglejs2`, `main`)
+- `deep-gaurav/nrfx` (branch: `pebbleos-banglejs2`)
+- `deep-gaurav/pebbleapp` (branches: `banglejs2`, `master`)
+- `deep-gaurav/qspi-flasher` (branch: `master`)
 
-2. Push each repo:
+### Needs Creation & Push
+
+1. Create `deep-gaurav/log-reader` on GitHub, then:
    ```bash
-   # PebbleOS (already pushed)
-   cd PebbleOS
-   git push origin banglejs2:refs/heads/banglejs2
-
-   # nrfx (already pushed)
-   cd ../nrfx-temp
-   git push origin pebbleos-banglejs2
-
-   # pebbleapp (already pushed)
-   cd ../mobileapp
-   git push origin master
-
-   # qspi-flasher
-   cd ../qspi-flasher-temp
-   git remote add origin git@github.com:deep-gaurav/qspi-flasher.git
-   git push -u origin master
-
-   # log-reader
-   cd ../log-reader-temp
+   cd log-reader
    git remote add origin git@github.com:deep-gaurav/log-reader.git
-   git push -u origin master
-
-   # metarepo
-   cd ../pebbleos-banglejs2
-   git remote add origin git@github.com:deep-gaurav/pebbleos-banglejs2.git
    git push -u origin master
    ```
 
-3. Add submodules to metarepo:
+2. Create `deep-gaurav/pebbleos-banglejs2` on GitHub, then add submodules:
    ```bash
    cd pebbleos-banglejs2
+   git remote add origin git@github.com:deep-gaurav/pebbleos-banglejs2.git
    git submodule add git@github.com:deep-gaurav/PebbleOS.git PebbleOS
    git submodule add git@github.com:deep-gaurav/nrfx.git nrfx
    git submodule add git@github.com:deep-gaurav/pebbleapp.git pebbleapp
    git submodule add git@github.com:deep-gaurav/qspi-flasher.git qspi-flasher
    git submodule add git@github.com:deep-gaurav/log-reader.git log-reader
    git commit -m "Add submodules"
-   git push origin master
+   git push -u origin master
    ```
 
 ## Notes
