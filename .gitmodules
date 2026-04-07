@@ -1,0 +1,15 @@
+[submodule "PebbleOS"]
+	path = PebbleOS
+	url = git@github.com:deep-gaurav/PebbleOS.git
+[submodule "nrfx"]
+	path = nrfx
+	url = git@github.com:deep-gaurav/nrfx.git
+[submodule "pebbleapp"]
+	path = pebbleapp
+	url = git@github.com:deep-gaurav/pebbleapp.git
+[submodule "qspi-flasher"]
+	path = qspi-flasher
+	url = git@github.com:deep-gaurav/qspi-flasher.git
+[submodule "bangle-memory-logger"]
+	path = bangle-memory-logger
+	url = git@github.com:deep-gaurav/bangle-memory-logger.git
