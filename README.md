@@ -72,6 +72,20 @@ Options:
 
 Use the qspi-flasher tooling to flash QSPI via SWD port.
 
+## Reading Logs
+
+The bangle-memory-logger tool reads log buffers from the device via SWD:
+
+```bash
+./bangle-memory-logger/target/release/log-reader --elf PebbleOS/build/src/fw/tintin_fw.elf | tee output.log
+```
+
+Options:
+- `--elf <path>` - Path to the firmware ELF file (for symbol resolution)
+- Use `tee` to both display and save logs
+
+The device must be connected via SWD and powered on.
+
 ## Notes
 
 - Only SWD port is exposed on BangleJS2, requiring special tooling for QSPI flashing
