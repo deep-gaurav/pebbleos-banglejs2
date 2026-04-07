@@ -56,6 +56,18 @@ cd bangle-memory-logger
 cargo build --release
 ```
 
+## Build and Flash Script
+
+A convenience script is provided in `scripts/build_and_flash.sh` that handles the complete build and flash workflow:
+
+```bash
+./scripts/build_and_flash.sh
+```
+
+Options:
+- `--no-flash` - Build only, skip all flashing
+- `--no-qspi` - Skip QSPI flash, only flash main firmware
+
 ## Flashing
 
 Use the qspi-flasher tooling to flash QSPI via SWD port.
