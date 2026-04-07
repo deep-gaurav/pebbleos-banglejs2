@@ -10,7 +10,7 @@ This is a metarepo containing references to all repositories needed for the Bang
 - [nrfx](https://github.com/deep-gaurav/nrfx) - Nordic RF driver (branch: `pebbleos-banglejs2`)
 - [pebbleapp](https://github.com/deep-gaurav/pebbleapp) - Companion phone app (branch: `banglejs2`)
 - [qspi-flasher](https://github.com/deep-gaurav/qspi-flasher) - QSPI flashing tooling
-- [log-reader](https://github.com/deep-gaurav/log-reader) - Log reading tooling
+- [bangle-memory-logger](https://github.com/deep-gaurav/bangle-memory-logger) - Memory-based log reading tooling
 
 ## What's Working
 
@@ -39,53 +39,26 @@ git submodule update --init --recursive
 
 ### Tools
 
+**qspi-flasher:**
 ```bash
-# Build qspi-flasher (from qspi-flasher-fw/ directory for firmware, qspi-flasher-host/ for host)
+# Firmware (from qspi-flasher-fw/ directory)
 cd qspi-flasher/qspi-flasher-fw
 cargo build --release
 
+# Host tool (from qspi-flasher-host/ directory)
 cd qspi-flasher/qspi-flasher-host
 cargo build --release
+```
 
-# Build log-reader
-cd log-reader
+**bangle-memory-logger:**
+```bash
+cd bangle-memory-logger
 cargo build --release
 ```
 
 ## Flashing
 
 Use the qspi-flasher tooling to flash QSPI via SWD port.
-
-## Publishing Instructions
-
-### Already Published
-
-- `deep-gaurav/PebbleOS` (branches: `banglejs2`, `main`)
-- `deep-gaurav/nrfx` (branch: `pebbleos-banglejs2`)
-- `deep-gaurav/pebbleapp` (branches: `banglejs2`, `master`)
-- `deep-gaurav/qspi-flasher` (branch: `master`)
-
-### Needs Creation & Push
-
-1. Create `deep-gaurav/log-reader` on GitHub, then:
-   ```bash
-   cd log-reader
-   git remote add origin git@github.com:deep-gaurav/log-reader.git
-   git push -u origin master
-   ```
-
-2. Create `deep-gaurav/pebbleos-banglejs2` on GitHub, then add submodules:
-   ```bash
-   cd pebbleos-banglejs2
-   git remote add origin git@github.com:deep-gaurav/pebbleos-banglejs2.git
-   git submodule add git@github.com:deep-gaurav/PebbleOS.git PebbleOS
-   git submodule add git@github.com:deep-gaurav/nrfx.git nrfx
-   git submodule add git@github.com:deep-gaurav/pebbleapp.git pebbleapp
-   git submodule add git@github.com:deep-gaurav/qspi-flasher.git qspi-flasher
-   git submodule add git@github.com:deep-gaurav/log-reader.git log-reader
-   git commit -m "Add submodules"
-   git push -u origin master
-   ```
 
 ## Notes
 
