@@ -33,7 +33,7 @@ This is a metarepo containing references to all repositories needed for the Bang
 ```bash
 cd PebbleOS
 git submodule update --init --recursive
-./waf configure --board BANGLEJS2
+./waf configure --board banglejs2
 ./waf build
 ```
 
