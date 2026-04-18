@@ -2,6 +2,30 @@
 
 This is a port of PebbleOS to the BangleJS2 smartwatch.
 
+## Prerequisites
+
+- **Docker** - For building firmware in a consistent environment
+- **probe-rs** - For flashing firmware via SWD (`cargo install probe-rs-tools`)
+- **Rust toolchain** - For building QSPI flasher tools and memory logger (`curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`)
+- **Python 3** - For QSPI flash image creation
+
+## Quick Start
+
+```bash
+# Clone the repository
+git clone --recursive <repository-url>
+cd pebbleos-banglejs2
+
+# Initialize submodules (if not cloned with --recursive)
+make init-submodules
+
+# Build everything
+make build
+
+# Build and flash (requires hardware connected via SWD)
+make flash
+```
+
 ## Repository Structure
 
 This is a metarepo containing references to all repositories needed for the BangleJS2 port:
@@ -26,39 +50,60 @@ This is a metarepo containing references to all repositories needed for the Bang
 
 - Peripherals (accelerometer, GPS, heart rate sensor, temperature, pressure, etc.)
 
-## Building
+## Building with Makefile
 
-### Firmware
-
+**Initialize submodules:**
 ```bash
-cd PebbleOS
-git submodule update --init --recursive
-./waf configure --board banglejs2
-./waf build
+make init-submodules
 ```
 
-### Tools
-
-**qspi-flasher:**
+**Build firmware only:**
 ```bash
-# Firmware (from qspi-flasher-fw/ directory)
-cd qspi-flasher/qspi-flasher-fw
-cargo build --release
-
-# Host tool (from qspi-flasher-host/ directory)
-cd qspi-flasher/qspi-flasher-host
-cargo build --release
+make build-firmware
 ```
 
-**bangle-memory-logger:**
+**Build all tools (QSPI flasher + memory logger):**
 ```bash
-cd bangle-memory-logger
-cargo build --release
+make build-tools
 ```
 
-## Build and Flash Script
+**Build everything:**
+```bash
+make build
+```
 
-A convenience script is provided in `scripts/build_and_flash.sh` that handles the complete build and flash workflow:
+**Clean build artifacts:**
+```bash
+make clean
+```
+
+## Build and Flash Options
+
+### Using Makefile (Recommended)
+
+**Flash everything (requires hardware):**
+```bash
+make flash
+```
+
+**Flash QSPI only:**
+```bash
+make flash-qspi
+```
+
+**Flash main firmware only:**
+```bash
+make flash-firmware
+```
+
+**Read logs (requires hardware):**
+```bash
+make logs
+```
+
+### Using Shell Script
+
+A convenience script is provided in `scripts/build_and_flash.sh`:
 
 ```bash
 ./scripts/build_and_flash.sh
@@ -68,9 +113,38 @@ Options:
 - `--no-flash` - Build only, skip all flashing
 - `--no-qspi` - Skip QSPI flash, only flash main firmware
 
+## Manual Tool Building
+
+If not using the Makefile:
+
+**QSPI flasher:**
+```bash
+# Firmware
+cd qspi-flasher/qspi-flasher-fw
+cargo build --release
+
+# Host tool
+cd qspi-flasher/qspi-flasher-host
+cargo build --release
+```
+
+**Memory logger:**
+```bash
+cd bangle-memory-logger
+cargo build --release
+```
+
 ## Flashing
 
-Use the qspi-flasher tooling to flash QSPI via SWD port.
+The device must be connected via SWD and powered on. Use `probe-rs` for flashing:
+
+```bash
+# Flash main firmware
+probe-rs download --chip nRF52840_xxAA PebbleOS/build/src/fw/tintin_fw.elf
+probe-rs reset --chip nRF52840_xxAA
+```
+
+For QSPI flashing, use the qspi-flasher tooling (see `make flash-qspi`).
 
 ## Reading Logs
 

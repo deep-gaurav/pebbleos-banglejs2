@@ -1,0 +1,51 @@
+# Build artifacts
+PebbleOS/build/
+qspi-flasher/qspi-flasher-fw/target/
+qspi-flasher/qspi-flasher-host/target/
+bangle-memory-logger/target/
+pebbleapp/target/
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# waf
+.waf*
+build/.lock*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+output.log
+
+# Temporary files
+/tmp/
+*.tmp

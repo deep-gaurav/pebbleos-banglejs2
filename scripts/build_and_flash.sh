@@ -59,16 +59,16 @@ BUILD_START=$(date +%s)
 echo "Building PebbleOS in docker (board=banglejs2)..."
 
 docker run --rm \
-    -v "$PEBBLEOS_DIR:/work" \
+    -v "$REPO_ROOT:/repo" \
     -v "$REPO_ROOT/scripts:/tools" \
-    -w /work \
+    -w /repo/PebbleOS \
     "$DOCKER_IMAGE" \
     bash -c "
-        git config --global --add safe.directory /work && \
+        git config --global --add safe.directory /repo && \
         git config --global user.email 'test@test.com' && \
         git config --global user.name 'Test User' && \
         pip install pillow freetype-py pyusb pyserial sh pypng pexpect 'cobs==1.0.0' 'ply==3.4' svg.path requests GitPython==1.0.1 pyelftools pycryptodome mock nose boto 'prompt_toolkit>=0.55' enum34 bitarray pep8 polib 'intelhex>=2.1,<3' protobuf grpcio-tools nanopb certifi libclang packaging pyftdi==0.56.0 pathlib libpebble2 && \
-        cd /work && \
+        cd /repo/PebbleOS && \
         rm -f build/.lock-waf_linux_build && \
         ./waf configure --board=banglejs2 --relax_toolchain_restrictions --nohash --no-pulse-everywhere && \
         ./waf build 
