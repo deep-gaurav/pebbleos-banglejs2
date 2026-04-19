@@ -13,3 +13,9 @@
 [submodule "bangle-memory-logger"]
 	path = bangle-memory-logger
 	url = https://github.com/deep-gaurav/bangle-memory-logger.git
+[submodule "Espruino"]
+	path = Espruino
+	url = https://github.com/espruino/Espruino.git
+[submodule "BangleJS2BareMetal"]
+	path = BangleJS2BareMetal
+	url = https://github.com/espruino/BangleJS2BareMetal.git

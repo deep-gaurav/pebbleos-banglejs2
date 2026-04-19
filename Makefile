@@ -50,6 +50,7 @@ build-firmware:
 		"$(DOCKER_IMAGE)" \
 		bash -c " \
 			git config --global --add safe.directory /repo && \
+			git config --global --add safe.directory /repo/PebbleOS && \
 			git config --global user.email 'build@local' && \
 			git config --global user.name 'Build' && \
 			pip install pillow freetype-py pyusb pyserial sh pypng pexpect 'cobs==1.0.0' 'ply==3.4' svg.path requests GitPython==1.0.1 pyelftools pycryptodome mock nose boto 'prompt_toolkit>=0.55' enum34 bitarray pep8 polib 'intelhex>=2.1,<3' protobuf grpcio-tools nanopb certifi libclang packaging pyftdi==0.56.0 pathlib libpebble2 && \
